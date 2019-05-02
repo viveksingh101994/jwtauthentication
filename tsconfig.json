@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "typeRoots": ["node_modules/@types"],
+        "target": "es2016",
+        "noImplicitAny": false,
+        "noUnusedLocals": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "rootDir": "lib/",
+        "outDir": "dist/",
+        "watch": false,
+        "skipLibCheck": true
+    },
+    "exclude": ["node_modules", "examples"]
+}

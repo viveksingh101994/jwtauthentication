@@ -1,0 +1,8 @@
+{
+    "DB": {
+        "NAME": "mern",
+        "SERVER": "abcd",
+        "USER": "vivek",
+        "PASSWORD": "12345"
+    }
+}

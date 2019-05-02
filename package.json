@@ -1,0 +1,29 @@
+{
+  "name": "react-jwt-login",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node ./bin/www",
+    "test:tslint": "tslint -t verbose --project tsconfig.json",
+    "test:prettier": "prettier --list-different \"**/*.{ts,js,css,scss,md}\"",
+    "fix:tslint": "tslint --fix --project tsconfig.json",
+    "fix:prettier": "prettier --write \"**/*.{ts,js,css,scss,md}\""
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "express": "~4.16.0",
+    "body-parser": "^1.19.0",
+    "config": "^3.1.0",
+    "mongoose": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.13.8",
+    "prettier": "^1.17.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.5"
+  }
+}
