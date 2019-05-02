@@ -8,9 +8,27 @@ class Jwt {
     return new Jwt();
   }
   private privateKey: any;
-
+  private secret = process.env.SECRET;
   public hasPrivateKey(): boolean {
     return this.privateKey !== undefined;
+  }
+
+  public verifyJWTForUser(token: string) {
+    return new Promise((resolve, reject) => {
+      this.privateKey = fs.readFileSync("./private-key.pem");
+      jsonwebtoken.verify(
+        token,
+        this.secret,
+        { algorithms: ["RS256"] },
+        (err, decoded) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(decoded);
+          }
+        }
+      );
+    });
   }
 
   public generateJwtForUser(claims: any): Promise<string> {
