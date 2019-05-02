@@ -2,12 +2,7 @@ import * as config from "config";
 import * as mongoose from "mongoose";
 
 export class DB {
-  private user: string;
-  private name: string;
-  private password: string;
-  private server: string;
-
-  public async init() {
+  public static async init() {
     this.setConfiguration();
     const connectionUri = this.getConnectionString();
     try {
@@ -22,19 +17,25 @@ export class DB {
       process.exit(1);
     }
   }
-  private setConfiguration() {
+
+  private static user: string;
+  private static dbname: string;
+  private static password: string;
+  private static server: string;
+
+  private static setConfiguration() {
     this.user = process.env.DB_USER || config.get("DB.USER");
-    this.name = process.env.DB_NAME || config.get("DB.NAME");
+    this.dbname = process.env.DB_NAME || config.get("DB.NAME");
     this.password = process.env.DB_PASSWORD || config.get("DB.PASSWORD");
     this.server = process.env.DB_SERVER || config.get("DB.SERVER");
   }
 
-  private getConnectionString() {
+  private static getConnectionString() {
     if (process.env.NODE_ENV === "local") {
-      return `mongodb://127.0.0.1:27017/${this.name}`;
+      return `mongodb://127.0.0.1:27017/${this.dbname}`;
     } else {
       return `mongodb://${this.user}:${this.password}@${this.server}/${
-        this.name
+        this.dbname
       }`;
     }
   }
