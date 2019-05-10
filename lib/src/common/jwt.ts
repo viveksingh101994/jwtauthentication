@@ -1,5 +1,3 @@
-import * as config from "config";
-import * as fs from "fs";
 import * as jsonwebtoken from "jsonwebtoken";
 import * as uuid from "uuid";
 
@@ -7,52 +5,33 @@ class Jwt {
   public static getInstance(): Jwt {
     return new Jwt();
   }
-  private privateKey: any;
-  private secret = process.env.SECRET;
-  public hasPrivateKey(): boolean {
-    return this.privateKey !== undefined;
-  }
-
-  public verifyJWTForUser(token: string) {
-    return new Promise((resolve, reject) => {
-      this.privateKey = fs.readFileSync("./private-key.pem");
-      jsonwebtoken.verify(
-        token,
-        this.secret,
-        { algorithms: ["RS256"] },
-        (err, decoded) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(decoded);
-          }
-        }
-      );
-    });
-  }
 
   public generateJwtForUser(claims: any): Promise<string> {
     return new Promise((resolve, reject) => {
       const iat = Math.floor(Date.now() / 1000);
-      claims.exp =
-        iat +
-        parseInt(config.get("JWT.EXPIRE_PERIOD_IN_SECONDS").toString(), 10);
+      claims.exp = iat + parseInt(process.env.JWT_EXPIRE_PERIOD_IN_SECONDS, 10);
       claims.iat = iat;
       claims.jti = uuid.v4();
-      claims.iss = config.get("JWT.ISSUER").toString();
-      this.privateKey = fs.readFileSync("./private-key.pem");
-      jsonwebtoken.sign(
-        claims,
-        this.privateKey,
-        { algorithm: "RS256" },
-        (err, token) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(token);
-          }
+      claims.iss = process.env.JWT_ISSUER;
+      jsonwebtoken.sign(claims, process.env.SECRET, (err, token) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(token);
         }
-      );
+      });
+    });
+  }
+
+  public verifyandDecodeJwt(token: string) {
+    return new Promise((resolve, reject) => {
+      jsonwebtoken.verify(token, process.env.SECRET, (err, decoded) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(decoded);
+        }
+      });
     });
   }
 }

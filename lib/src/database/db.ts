@@ -1,4 +1,3 @@
-import * as config from "config";
 import * as mongoose from "mongoose";
 
 export class DB {
@@ -24,10 +23,14 @@ export class DB {
   private static server: string;
 
   private static setConfiguration() {
-    this.user = process.env.DB_USER || config.get("DB.USER");
-    this.dbname = process.env.DB_NAME || config.get("DB.NAME");
-    this.password = process.env.DB_PASSWORD || config.get("DB.PASSWORD");
-    this.server = process.env.DB_SERVER || config.get("DB.SERVER");
+    if (process.env.NODE_ENV === "local") {
+      this.dbname = process.env.DB_NAME;
+    } else {
+      this.user = process.env.DB_USER;
+      this.dbname = process.env.DB_NAME;
+      this.password = process.env.DB_PASSWORD;
+      this.server = process.env.DB_SERVER;
+    }
   }
 
   private static getConnectionString() {

@@ -14,7 +14,10 @@
         ],
         "env": {
             "NODE_ENV": "local",
-            "SECRET": "jdLUasTg7VxqUkpVYcAWjNppUWHQrBARf8RrvAr7DPaF7joYmTQPQaAR7TYAjeeq"
+            "SECRET": "jdLUasTg7VxqUkpV",
+            "DB_NAME": "mern-jwt",
+            "JWT_EXPIRE_PERIOD_IN_SECONDS": "3600",
+            "JWT_ISSUER": "mern-jwt"
         }
     }]
 }

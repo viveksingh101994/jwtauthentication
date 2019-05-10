@@ -26,6 +26,7 @@ class App {
   private initializeDatabase() {
     DB.init();
   }
+
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
     this.app.use(this.loggerMiddleware);
