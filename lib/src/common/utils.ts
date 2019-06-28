@@ -1,11 +1,11 @@
 import { RouteType } from "./enum";
 
-export class Utils {
-  public static copyObj(obj) {
+export const Utils = {
+  copyObj(obj) {
     return Object.assign({}, obj);
-  }
+  },
 
-  public static getRoutePrefix(
+  getRoutePrefix(
     requestType: RouteType,
     endPointName: string,
     apiVersion: number = 1
@@ -17,13 +17,13 @@ export class Utils {
     } else {
       return endPointName;
     }
-  }
+  },
 
   /**
    *
    * @param email Validating Email from regex
    */
-  public static isEmailValid(email: string) {
+  isEmailValid(email: string) {
     const emailRegex = new RegExp(
       /^(([^<>[\]\\.\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g
     );
@@ -53,9 +53,9 @@ export class Utils {
       emailValid = false;
     }
     return emailValid;
-  }
+  },
 
-  private static charactersInEmailAreValid(email) {
+  charactersInEmailAreValid(email) {
     let parsed = true;
     const validMailchars = "abcdefghijklmnopqrstuvwxyz0123456789@.-_+~'!$&*,=;";
     for (let i = 0; i < email.length; i++) {
@@ -68,4 +68,4 @@ export class Utils {
     }
     return parsed;
   }
-}
+};

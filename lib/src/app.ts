@@ -48,7 +48,7 @@ class App {
   private loggerMiddleware(
     request: express.Request,
     response: express.Response,
-    next
+    next: express.NextFunction
   ) {
     // tslint:disable-next-line:no-console
     console.log(`${request.method} ${request.path}`);
